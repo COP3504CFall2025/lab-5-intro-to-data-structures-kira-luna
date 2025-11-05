@@ -6,7 +6,13 @@ using namespace std;
 
 template <typename T>
 class LinkedList {
+	struct Node {
+		T data;
+		Node* prev;
+		Node* next;
+	};
 public:
+
 	// Behaviors
 	void printForward() const;
 	void printReverse() const;
@@ -25,7 +31,7 @@ public:
 	// Removal
 	bool removeHead();
 	bool removeTail();
-	void Clear();
+	void clear();
 
 	// Operators
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept;
@@ -42,7 +48,5 @@ private:
 	Node* head;
 	Node* tail;
 	unsigned int count;
-
 };
-
 
