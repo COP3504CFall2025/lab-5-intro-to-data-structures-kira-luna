@@ -2,16 +2,35 @@
 #include <iostream>
 using namespace std;
 
-
-
 template <typename T>
 class LinkedList {
+// Internal struct for each Node
 	struct Node {
 		T data;
 		Node* prev;
 		Node* next;
 	};
+
+private:
+	// Stores pointers to first and last nodes and count
+	Node* head;
+	Node* tail;
+	// Total number of nodes
+	unsigned int count;
+
 public:
+	// Construction/Destruction
+	LinkedList() {
+		head = new Node();
+		tail = new Node();
+		head.next = tail;
+		head.prev = nullptr;
+		tail.next = nullptr;
+		tail.prev = head;
+	}
+	LinkedList(const LinkedList<T>& list);
+	LinkedList(LinkedList<T>&& other) noexcept;
+	~LinkedList();
 
 	// Behaviors
 	void printForward() const;
@@ -37,16 +56,5 @@ public:
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept;
 	LinkedList<T>& operator=(const LinkedList<T>& rhs);
 
-	// Construction/Destruction
-	LinkedList();
-	LinkedList(const LinkedList<T>& list);
-	LinkedList(LinkedList<T>&& other) noexcept;
-	~LinkedList();
-
-private:
-	// Stores pointers to first and last nodes and count
-	Node* head;
-	Node* tail;
-	unsigned int count;
 };
 
