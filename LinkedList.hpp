@@ -35,11 +35,11 @@ public:
 		head->next = tail;
 		tail->next = nullptr;
 		tail->prev = head;
-		count = list->count;
+		count = 2;
 
-		Node* temp = list->head;
+		Node* temp = list.head;
 		for (size_t i = 1; i < list.count-1; i++) {
-			addTail(temp->next.data);
+			addTail(temp->next->data);
 			temp = temp->next;
 		}
 		temp = nullptr;
@@ -59,6 +59,8 @@ public:
 		tail = other->tail;
 		other->head = nullptr;
 		other->tail = nullptr;
+		count = other->count;
+		other->count = 0;
 		return *this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) { // Copy assignment
@@ -100,7 +102,7 @@ public:
 		if (tail) {
 			Node* temp = tail;
 			while (temp->prev->prev) {
-				std::cout << temp->prev.data << std::endl;
+				std::cout << temp->prev->data << std::endl;
 				temp = temp->prev;
 			}
 			temp = nullptr;
