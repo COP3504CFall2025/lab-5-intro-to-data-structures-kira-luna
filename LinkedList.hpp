@@ -45,28 +45,28 @@ public:
 		temp = nullptr;
 	}
 	LinkedList(LinkedList<T>&& other) noexcept { // Move constructor
-		head = other->head;
-		other->head = nullptr;
-		tail = other->tail;
-		other->tail = nullptr;
-		count = other->count;
-		other->count = 0;
+		head = other.head;
+		other.head = nullptr;
+		tail = other.tail;
+		other.tail = nullptr;
+		count = other.count;
+		other.count = 0;
 		// Should I move over every data point from the 'other' list?
 	}
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept { // Move assignment
 		if (this == &other) return *this;
-		head = other->head;
-		tail = other->tail;
-		other->head = nullptr;
-		other->tail = nullptr;
-		count = other->count;
-		other->count = 0;
+		head = other.head;
+		tail = other.tail;
+		other.head = nullptr;
+		other.tail = nullptr;
+		count = other.count;
+		other.count = 0;
 		return *this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) { // Copy assignment
 		if (this == &rhs) return *this;
 		clear();
-		count = rhs->count;
+		count = rhs.count;
 		head = new Node();
 		tail = new Node();
 		head->prev = nullptr;
@@ -74,7 +74,7 @@ public:
 		tail->next = nullptr;
 		tail->prev = head;
 
-		Node* temp = rhs->head;
+		Node* temp = rhs.head;
 		for (size_t i = 1; i < count-1; i++) {
 			addTail(temp->next.data);
 			temp = temp->next;
