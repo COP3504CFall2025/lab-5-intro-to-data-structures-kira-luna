@@ -62,6 +62,7 @@ public:
 		return *this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) { // Copy assignment
+		if (this == &rhs) return *this;
 		clear();
 		count = rhs->count;
 		head = new Node();
@@ -82,23 +83,28 @@ public:
 
 	~LinkedList() { // Destructor
 		clear();
-		count = 0;
-		if (tail) {
-			delete tail;
-			tail = nullptr;
-		}
-		if (head) {
-			delete head;
-			head = nullptr;
-		}
 	}
 
 	// Behaviors
 	void printForward() const { // Prints elements from head to tail.
-		// TODO: iterate through the list front to back, printing each element
+		if (head) {
+			Node* temp = head;
+			while (temp->next->next) {
+				std::cout << temp->next->data << std::endl;
+				temp = temp->next;
+			}
+			temp = nullptr;
+		}
 	}
-	void printReverse() const { // Prints elements from head to tail.
-		// TODO: iterate through the list back to front, printing each element
+	void printReverse() const { // Prints elements from tail to head.
+		if (tail) {
+			Node* temp = tail;
+			while (temp->prev->prev) {
+				std::cout << temp->prev.data << std::endl;
+				temp = temp->prev;
+			}
+			temp = nullptr;
+		}
 	}
 
 	// Accessors

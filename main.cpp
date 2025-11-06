@@ -19,7 +19,43 @@
 */
 
 int main() {
-    std::cout << "Hello" << std::endl;
+    std::cout << "Creating list 1." << std::endl;
+    LinkedList<int> list;
+    std::cout << "Total node count: " << list.getCount() << std::endl << std::endl;
+
+    int num = 1;
+    std::cout << "Adding element: " << num << std::endl;
+    list.addTail(num);
+    std::cout << "Printing list: " << std::endl;
+    list.printForward();
+    std::cout << "Total node count: " << list.getCount() << std::endl << std::endl;
+
+    num++;
+    std::cout << "Adding element: " << num << std::endl;
+    list.addTail(num);
+    std::cout << "Printing list: " << std::endl;
+    list.printForward();
+    std::cout << "Total node count: " << list.getCount() << std::endl << std::endl;
+
+    num++;
+    std::cout << "Adding element: " << num << std::endl;
+    list.addTail(num);
+    std::cout << "Printing list: " << std::endl;
+    list.printForward();
+    std::cout << "Total node count: " << list.getCount() << std::endl << std::endl;
+
+    num++;
+    std::cout << "Adding element: " << num << std::endl;
+    list.addTail(num);
+    std::cout << "Printing list: " << std::endl;
+    list.printForward();
+    std::cout << "Total node count: " << list.getCount() << std::endl << std::endl;
+
+    std::cout << "Clearing list." << std::endl;
+    list.clear();
+    std::cout << "Printing list: " << std::endl;
+    list.printForward();
+    std::cout << "Total node count: " << list.getCount() << std::endl << std::endl;
 
     return 0;
 }
