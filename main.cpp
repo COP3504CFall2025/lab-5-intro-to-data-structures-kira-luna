@@ -19,13 +19,22 @@
 */
 
 int main() {
+    // Creating and filling list 1
+    std::cout << "\nCreating & filling list 1." << std::endl;
+    LinkedList<int> list1;
+    for (int i = 1; i < 6; i ++) {
+        list1.addTail(i);
+    }
+    // TODO: Test ABS.hpp here!
+
+    /*
+    // Testing LinkedList class implementation
     // Creating and filling list 1 (testing default constructor, addTail()
     std::cout << "\nCreating & filling list 1." << std::endl;
     LinkedList<int> list1;
     for (int i = 1; i < 6; i ++) {
         list1.addTail(i);
     }
-    /*
     // Test accessors: getHead(), getTail()
     std::cout << "Head of list 1: " << list1.getHead() << std::endl;
     std::cout << "Tail of list 1: " << list1.getTail() << std::endl;
@@ -35,7 +44,6 @@ int main() {
     std::cout << "Printing list 1 backwards: " << std::endl;
     list1.printReverse();
     std::cout << "List 1 node count: " << list1.getCount() << std::endl << std::endl;
-    */
 
     // Testing copy constructor
     std::cout << "Creating list 2: copying list 1." << std::endl;
@@ -61,7 +69,6 @@ int main() {
     std::cout << "Printing list 2: " << std::endl;
     list2.printForward();
 
-    /*
     // Test: Move constructor
     std::cout << "Creating list 3: copying list 2." << std::endl;
     LinkedList<int> list3(std::move(list2));
@@ -87,11 +94,8 @@ int main() {
     list1 = std::move(list2);
     std::cout << "Printing list 1: " << std::endl;
     list1.printForward();
-    */
-
 
     // Clearing lists
-    /*
     std::cout << "Clearing list 1." << std::endl;
     list1.clear();
     std::cout << "Printing list 1: " << std::endl;
