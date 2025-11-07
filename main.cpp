@@ -10,6 +10,14 @@
 #include "LLS.hpp"
 #include <iostream>
 
+template<typename T>
+void printData(T* arr, size_t currentSize) {
+    for (size_t i = 0; i < currentSize; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
 /*
     - LEAVE THE IFDEF GUARDS TO KEEP YOUR MAIN WITHOUT CONFLICTING WITH GRADESCOPE!
     - Test your code in this main and run locally with the RunMain configuration in CLion, or
@@ -19,30 +27,56 @@
 */
 
 int main() {
-    // TODO: Test ABS.hpp here!
-    // Testing Big 5
+    // TODO: Test ABQ.hpp: Array-Based Queue here!
+
+
+    /*
+    // Testing ABS class implementation
+    // Pushing, popping, peeping, getters
     std::cout << "Constructing & filling ABS 1." << std::endl;
-    ABS<int> arrayBasedStack1(10);
-    for (int i = 1; i < 6; i ++) {
-        arrayBasedStack1.push(i);
+    ABS<int> arrayBasedStack1(5);
+    for (size_t i = 0; i < 3; ++i) {
+        arrayBasedStack1.push(static_cast<int>(i));
+        std::cout << "Peeking at ABS 1: " << arrayBasedStack1.peek() << std::endl;
     }
-    arrayBasedStack1.getData().printForward();
+    std::cout << "Size of ABS 1: " << arrayBasedStack1.getSize() << std::endl;
+    std::cout << "Capacity of ABS 1: " << arrayBasedStack1.getMaxCapacity() << std::endl;
+    std::cout << "\nAdding elements: " << std::endl;
+    for (size_t i = 3; i < 6; ++i) {
+        arrayBasedStack1.push(static_cast<int>(i));
+        std::cout << "Peeking at ABS 1: " << arrayBasedStack1.peek() << std::endl;
+    }
+    std::cout << "Size of ABS 1: " << arrayBasedStack1.getSize() << std::endl;
+    std::cout << "Capacity of ABS 1: " << arrayBasedStack1.getMaxCapacity() << std::endl;
+    std::cout << "\nPopping elements: " << std::endl;
+    std::cout << "Removed from ABS 1: " << arrayBasedStack1.pop() << std::endl;
+    std::cout << "Removed from ABS 1: " << arrayBasedStack1.pop() << std::endl;
+    std::cout << "Peeking at ABS 1: " << arrayBasedStack1.peek() << std::endl;
+    std::cout << "Size of ABS 1: " << arrayBasedStack1.getSize() << std::endl;
+    std::cout << "Capacity of ABS 1: " << arrayBasedStack1.getMaxCapacity() << std::endl;
+    std::cout << "\nData pointer for ABS 1: " << arrayBasedStack1.getData() << std::endl;
+    */
+    /*
+    // Big 5 testing
     std::cout << "Copy constructing ABS 2 from ABS 1." << std::endl;
     ABS<int> arrayBasedStack2 = arrayBasedStack1;
-    arrayBasedStack2.getData().printForward();
-    std::cout << "Popping 2 elements from ABS 2." << std::endl;
+    printData<int>(arrayBasedStack2.getData(), arrayBasedStack2.getSize());
+    std::cout << "Popping element from ABS 2." << std::endl;
     arrayBasedStack2.pop();
-    arrayBasedStack2.pop();
-    arrayBasedStack2.getData().printForward();
+    printData<int>(arrayBasedStack2.getData(), arrayBasedStack2.getSize());
     std::cout << "Move constructing ABS 3 from ABS 2." << std::endl;
     ABS<int> arrayBasedStack3 = std::move(arrayBasedStack2);
-    arrayBasedStack3.getData().printForward();
-    std::cout << "Copy assigning ABS 4 from ABS 1." << std::endl;
-    ABS<int> arrayBasedStack4(11);
-    arrayBasedStack4 = arrayBasedStack1;
-    arrayBasedStack4.getData().printForward();
-
-
+    printData<int>(arrayBasedStack3.getData(), arrayBasedStack3.getSize());
+    std::cout << "Copy assigning ABS 2 from ABS 1." << std::endl;
+    arrayBasedStack2 = arrayBasedStack1;
+    printData<int>(arrayBasedStack2.getData(), arrayBasedStack2.getSize());
+    std::cout << "Pushing to ABS 2." << std::endl;
+    arrayBasedStack2.push(5);
+    printData<int>(arrayBasedStack2.getData(), arrayBasedStack2.getSize());
+    std::cout << "Move assigning ABS 1 from ABS 2." << std::endl;
+    arrayBasedStack1 = std::move(arrayBasedStack2);
+    printData<int>(arrayBasedStack1.getData(), arrayBasedStack1.getSize());
+    */
 
     /*
     // Testing LinkedList class implementation
