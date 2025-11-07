@@ -64,10 +64,10 @@ public:
 		other.count = 0;
 		return *this;
 	}
-	LinkedList<T>& operator=(const LinkedList<T>& rhs) { // Copy assignment
+	LinkedList<T>& operator=(const LinkedList<T>& rhs) { // Copy assignment (error)?
 		if (this == &rhs) return *this;
 		clear();
-		count = rhs.count;
+		count = 2;
 		head = new Node();
 		tail = new Node();
 		head->prev = nullptr;
@@ -75,12 +75,13 @@ public:
 		tail->next = nullptr;
 		tail->prev = head;
 
-		Node* temp = rhs.head;
-		for (size_t i = 1; i < count-1; i++) {
-			addTail(temp->next.data);
+		Node* temp = rhs.head->next; // Node* temp = rhs.head;
+		for (size_t i = 1; i < rhs.count-1; i++) {
+			addTail(temp->data); // addTail(temp->next->data);
 			temp = temp->next;
 		}
 		temp = nullptr;
+		count = rhs.count;
 		return *this;
 	}
 

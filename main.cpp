@@ -19,13 +19,30 @@
 */
 
 int main() {
-    // Creating and filling list 1
-    std::cout << "\nCreating & filling list 1." << std::endl;
-    LinkedList<int> list1;
-    for (int i = 1; i < 6; i ++) {
-        list1.addTail(i);
-    }
     // TODO: Test ABS.hpp here!
+    // Testing Big 5
+    std::cout << "Constructing & filling ABS 1." << std::endl;
+    ABS<int> arrayBasedStack1(10);
+    for (int i = 1; i < 6; i ++) {
+        arrayBasedStack1.push(i);
+    }
+    arrayBasedStack1.getData().printForward();
+    std::cout << "Copy constructing ABS 2 from ABS 1." << std::endl;
+    ABS<int> arrayBasedStack2 = arrayBasedStack1;
+    arrayBasedStack2.getData().printForward();
+    std::cout << "Popping 2 elements from ABS 2." << std::endl;
+    arrayBasedStack2.pop();
+    arrayBasedStack2.pop();
+    arrayBasedStack2.getData().printForward();
+    std::cout << "Move constructing ABS 3 from ABS 2." << std::endl;
+    ABS<int> arrayBasedStack3 = std::move(arrayBasedStack2);
+    arrayBasedStack3.getData().printForward();
+    std::cout << "Copy assigning ABS 4 from ABS 1." << std::endl;
+    ABS<int> arrayBasedStack4(11);
+    arrayBasedStack4 = arrayBasedStack1;
+    arrayBasedStack4.getData().printForward();
+
+
 
     /*
     // Testing LinkedList class implementation

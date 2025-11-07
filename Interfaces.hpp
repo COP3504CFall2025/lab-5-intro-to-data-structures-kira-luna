@@ -5,6 +5,7 @@
 
 template <typename T>
 class StackInterface { // Defines standard LIFO (Last-In-First-Out) operations:
+public:
     virtual ~StackInterface() = default;
     virtual void push(const T& item) = 0;
     virtual T pop() = 0;
@@ -15,6 +16,7 @@ class StackInterface { // Defines standard LIFO (Last-In-First-Out) operations:
 
 template <typename T>
 class QueueInterface { // Defines standard FIFO (First-In-First-Out) operations:
+public:
     virtual ~QueueInterface() = default;
     virtual void enqueue(const T& item) = 0;
     virtual T dequeue() = 0;
@@ -25,6 +27,7 @@ class QueueInterface { // Defines standard FIFO (First-In-First-Out) operations:
 
 template <typename T>
 class DequeInterface { // Defines double-ended sequential access operations:
+public:
     virtual ~DequeInterface() = default;
     virtual void pushFront(const T& item) = 0;
     virtual void pushBack(const T& item) = 0;
