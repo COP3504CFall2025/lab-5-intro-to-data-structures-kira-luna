@@ -105,7 +105,7 @@ public:
         if (curr_size_ == 0) throw std::runtime_error("Stack is empty");
         curr_size_--;
         // If size is 1/4 capacity, halving capacity and moving to smaller array
-        if (curr_size_*4 <= capacity_) {
+        if (curr_size_ * 4 <= capacity_) {
             capacity_ /= 2;
             T* temp = new T[capacity_];
             for (size_t i = 0; i < curr_size_; ++i) {

@@ -21,28 +21,37 @@ private:
 
 public:
 	LinkedList() { // Constructor
+		/*
 		head = new Node();
 		tail = new Node();
 		head->next = tail;
 		head->prev = nullptr;
 		tail->next = nullptr;
 		tail->prev = head;
-		count = 2;
+		*/
+		head = nullptr;
+		tail = nullptr;
+		count = 0;
 	}
 	LinkedList(const LinkedList<T>& list) { // Copy constructor
+		head = nullptr;
+		tail = nullptr;
+		count = 0;
+		/*
 		head = new Node();
 		tail = new Node();
 		head->prev = nullptr;
 		head->next = tail;
 		tail->next = nullptr;
 		tail->prev = head;
-		count = 2;
+		*/
 
 		Node* temp = list.head;
-		for (size_t i = 1; i < list.count-1; i++) {
-			addTail(temp->next->data);
+		for (size_t i = 0; i < list.count; i++) {
+			addTail(temp->data); // addTail(temp->next->data);
 			temp = temp->next;
 		}
+		count = list.count;
 		temp = nullptr;
 	}
 	LinkedList(LinkedList<T>&& other) noexcept { // Move constructor
@@ -67,16 +76,20 @@ public:
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) { // Copy assignment (error)?
 		if (this == &rhs) return *this;
 		clear();
-		count = 2;
+		head = nullptr;
+		tail = nullptr;
+		count = 0;
+		/*
 		head = new Node();
 		tail = new Node();
 		head->prev = nullptr;
 		head->next = tail;
 		tail->next = nullptr;
 		tail->prev = head;
+		*/
 
-		Node* temp = rhs.head->next; // Node* temp = rhs.head;
-		for (size_t i = 1; i < rhs.count-1; i++) {
+		Node* temp = rhs.head;
+		for (size_t i = 0; i < rhs.count; i++) {
 			addTail(temp->data); // addTail(temp->next->data);
 			temp = temp->next;
 		}
@@ -93,8 +106,9 @@ public:
 	void printForward() const { // Prints elements from head to tail.
 		if (head) {
 			Node* temp = head;
-			while (temp->next->next) {
-				std::cout << temp->next->data << std::endl;
+			// while (temp->next->next) {
+			while (temp) {
+				std::cout << temp->data << std::endl; // std::cout << temp->next->data << std::endl;
 				temp = temp->next;
 			}
 			temp = nullptr;
@@ -103,8 +117,8 @@ public:
 	void printReverse() const { // Prints elements from tail to head.
 		if (tail) {
 			Node* temp = tail;
-			while (temp->prev->prev) {
-				std::cout << temp->prev->data << std::endl;
+			while (temp) { // while (temp->prev->prev) {
+				std::cout << temp->data << std::endl;
 				temp = temp->prev;
 			}
 			temp = nullptr;
@@ -120,28 +134,50 @@ public:
 
 	// Insertion
 	void addHead(const T& data) {
-		Node* newHead = new Node;
-		head->data = data;
-		head->prev = newHead;
-		newHead->prev = nullptr;
-		newHead->next = head;
-		head = newHead;
-		count++;
+		if (count == 0) {
+			head = new Node;
+			head->prev = nullptr;
+			head->next = nullptr;
+			tail = head;
+			head->data = data;
+			count++;
+		}
+		else {
+			Node* newHead = new Node;
+			newHead->data = data;
+			head->prev = newHead;
+			newHead->prev = nullptr;
+			newHead->next = head;
+			head = newHead;
+			count++;
+		}
 	}
 	void addTail(const T& data) {
-		Node* newTail = new Node;
-		tail->data = data;
-		tail->next = newTail;
-		newTail->next = nullptr;
-		newTail->prev = tail;
-		tail = newTail;
-		count++;
+		if (count == 0) {
+			tail = new Node;
+			tail->next = nullptr;
+			tail->prev = nullptr;
+			head = tail;
+			tail->data = data;
+			count++;
+		}
+		else {
+			Node* newTail = new Node;
+			newTail->data = data;
+			tail->next = newTail;
+			newTail->next = nullptr;
+			newTail->prev = tail;
+			tail = newTail;
+			count++;
+		}
 	}
 
 	// Removal
 	bool removeHead() {
-		if (!head) return false; // If there is no head (and therefore no nodes)
-		if (!(head->next)) { // If head is the only node in the list
+		if (count == 0) return false; // If there is no head (and therefore no nodes)
+		// if (!(head->next)) {
+		if (head && count == 1) { // If head is the only node in the list
+			if (head == tail) tail = nullptr;
 			delete head;
 			head = nullptr;
 			count--;
@@ -152,13 +188,16 @@ public:
 		head->next = nullptr;
 		// Remove/delete data?
 		delete head;
-		this->head = newHead;
+		head = newHead;
+		newHead = nullptr;
 		count--;
 		return true;
 	}
 	bool removeTail() {
-		if (!tail) return false; // If there is no tail (and therefore no nodes)
-		if (!(tail->prev)) { // If tail is the only node in the list
+		if (count == 0) return false; // If there is no tail (and therefore no nodes)
+		// if (!(tail->prev)) { // If tail is the only node in the list
+		if (tail && count == 1) {
+			if (head == tail) head = nullptr;
 			delete tail;
 			tail = nullptr;
 			count--;

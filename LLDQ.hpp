@@ -54,26 +54,26 @@ public:
 
     // Core Removal Operations: Remove from front/back
     T popFront() override {
-        if (list.getCount() == 2) throw std::runtime_error("Deque is empty");
-        T returnVal = list.getHead()->next->data;
+        if (list.getCount() == 0) throw std::runtime_error("Deque is empty");
+        T returnVal = list.getHead()->data; // T returnVal = list.getHead()->next->data;
         list.removeHead();
         return returnVal;
     }
     T popBack() override {
-        if (list.getCount() == 2) throw std::runtime_error("Deque is empty");
-        T returnVal = list.getTail()->prev->data;
+        if (list.getCount() == 0) throw std::runtime_error("Deque is empty");
+        T returnVal = list.getTail()->data; // T returnVal = list.getTail()->prev->data;
         list.removeTail();
         return returnVal;
     }
 
     // Element Accessors: Retrieve end data
     const T& front() const override {
-        if (list.getCount() == 2) throw std::runtime_error("Deque is empty");
-        return list.getHead()->next->data;
+        if (list.getCount() == 0) throw std::runtime_error("Deque is empty");
+        return list.getHead()->data;
     }
     const T& back() const override {
-        if (list.getCount() == 2) throw std::runtime_error("Deque is empty");
-        return list.getTail()->prev->data;
+        if (list.getCount() == 0) throw std::runtime_error("Deque is empty");
+        return list.getTail()->data;
     }
 
     // Getter: Total nodes
@@ -81,4 +81,3 @@ public:
         return list.getCount();
     }
 };
-

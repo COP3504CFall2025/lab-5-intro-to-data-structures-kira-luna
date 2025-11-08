@@ -47,16 +47,16 @@ public:
 
     // Deletion: Removes head node
     T dequeue() override {
-        if (list.getCount() == 2) throw std::runtime_error("Queue is empty");
-        T returnData = list.getHead()->next->data;
+        if (list.getCount() == 0) throw std::runtime_error("Queue is empty");
+        T returnData = list.getHead()->data; // T returnData = list.getHead()->next->data;
         list.removeHead();
         return returnData;
     }
 
     // Access: Returns head data
     T peek() const override {
-        if (list.getCount() == 2) throw std::runtime_error("Queue is empty");
-        return list.getHead()->next->data;
+        if (list.getCount() == 0) throw std::runtime_error("Queue is empty");
+        return list.getHead()->data; // return list.getHead()->next->data;
     }
 
     // Getter: Returns list count

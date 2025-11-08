@@ -22,6 +22,7 @@ void testLLDQ();
 void testABDQ();
 
 int main() {
+
     /*
     // Testing files:
     testLinkedList();
@@ -48,7 +49,7 @@ void testLinkedList() {
     // Creating and filling list 1 (testing default constructor, addTail()
     std::cout << "\nCreating & filling list 1." << std::endl;
     LinkedList<int> list1;
-    for (int i = 1; i < 6; i ++) {
+    for (int i = 0; i < 5; i ++) {
         list1.addTail(i);
     }
     // Test accessors: getHead(), getTail()
@@ -65,71 +66,81 @@ void testLinkedList() {
     std::cout << "Creating list 2: copying list 1." << std::endl;
     LinkedList<int> list2(list1);
     std::cout << "List 2 node count: " << list2.getCount() << std::endl << std::endl;
-    std::cout << "Printing list 2: " << std::endl;
+    std::cout << "Printing list 2 forwards: " << std::endl;
     list2.printForward();
     std::cout << "List 2 node count: " << list2.getCount() << std::endl << std::endl;
 
     // Testing addHead(), removeHead(), removeTail()
-    std::cout << "Adding 0, -1 to the front of list 2:" << std::endl;
-    list2.addHead(0);
+    std::cout << "Adding -1, -2 to the front of list 2:" << std::endl;
     list2.addHead(-1);
-    std::cout << "Printing list 2: " << std::endl;
+    list2.addHead(-2);
+    std::cout << "Printing list 2 forwards: " << std::endl;
     list2.printForward();
     std::cout << "Removing the front of list 2:" << std::endl;
     list2.removeHead();
-    std::cout << "Printing list 2: " << std::endl;
+    std::cout << "Printing list 2 forwards: " << std::endl;
     list2.printForward();
     std::cout << "Removing the end 2 items of list 2:" << std::endl;
     list2.removeTail();
     list2.removeTail();
-    std::cout << "Printing list 2: " << std::endl;
+    std::cout << "Printing list 2 forwards: " << std::endl;
     list2.printForward();
 
     // Test: Move constructor
-    std::cout << "Creating list 3: copying list 2." << std::endl;
+    std::cout << "Creating list 3: move constructing from list 2." << std::endl;
     LinkedList<int> list3(std::move(list2));
     std::cout << "List 3 node count: " << list3.getCount() << std::endl << std::endl;
-    std::cout << "Printing list 3: " << std::endl;
+    std::cout << "Printing list 3 forwards: " << std::endl;
     list3.printForward();
     std::cout << "List 3 node count: " << list3.getCount() << std::endl << std::endl;
-    std::cout << "Printing (now-empty) list 2: " << std::endl;
+    std::cout << "Printing (now-empty) list 2 forwards: " << std::endl;
     list2.printForward();
     std::cout << "List 2 node count: " << list2.getCount() << std::endl << std::endl;
 
     // Test: Move assignment
     std::cout << "Assigning list 1: moving list 3 contents." << std::endl;
     list1 = std::move(list3);
-    std::cout << "Printing list 1: " << std::endl;
+    std::cout << "Printing list 1 forwards: " << std::endl;
     list1.printForward();
-    std::cout << "Printing (now-empty) list 3: " << std::endl;
+    std::cout << "Printing (now-empty) list 3 forwards: " << std::endl;
     list3.printForward();
     std::cout << "List 3 node count: " << list3.getCount() << std::endl << std::endl;
 
     // Test: Copy assignment
-    std::cout << "\nAssigning list 1: copying list 2 contents." << std::endl;
-    list1 = std::move(list2);
-    std::cout << "Printing list 1: " << std::endl;
+    std::cout << "\nCreating & filling list 4." << std::endl;
+    LinkedList<int> list4;
+    for (int i = 10; i < 50; i+=10) {
+        list4.addTail(i);
+    }
+    std::cout << "Printing list 4 forwards: " << std::endl;
+    list4.printForward();
+    std::cout << "Copy assigning list 1 list 4's contents." << std::endl;
+    list1 = list4;
+    std::cout << "Printing list 1 forwards: " << std::endl;
     list1.printForward();
 
     // Clearing lists
-    std::cout << "Clearing list 1." << std::endl;
+    std::cout << "\nClearing list 1." << std::endl;
     list1.clear();
-    std::cout << "Printing list 1: " << std::endl;
+    std::cout << "Printing empty list 1: " << std::endl;
     list1.printForward();
-    std::cout << "List 1 node count: " << list1.getCount() << std::endl << std::endl;
-
+    std::cout << "List 1 node count: " << list1.getCount() << std::endl;
     std::cout << "Clearing list 2." << std::endl;
     list2.clear();
-    std::cout << "Printing list 2: " << std::endl;
+    std::cout << "Printing empty list 2: " << std::endl;
     list2.printForward();
     std::cout << "List 2 node count: " << list2.getCount() << std::endl << std::endl;
+    std::cout << "Clearing list 3." << std::endl;
+    list3.clear();
+    std::cout << "Clearing list 4." << std::endl;
+    list4.clear();
 }
 
 void testABS() {
     // Testing ABS class implementation
     // Pushing, popping, peeping, getters
     std::cout << "Constructing & filling ABS 1." << std::endl;
-    ABS<int> arrayBasedStack1(5);
+    ABS<int> arrayBasedStack1;
     for (size_t i = 0; i < 3; ++i) {
         arrayBasedStack1.push(static_cast<int>(i));
         std::cout << "Peeking at ABS 1: " << arrayBasedStack1.peek() << std::endl;
@@ -144,6 +155,8 @@ void testABS() {
     std::cout << "Size of ABS 1: " << arrayBasedStack1.getSize() << std::endl;
     std::cout << "Capacity of ABS 1: " << arrayBasedStack1.getMaxCapacity() << std::endl;
     std::cout << "\nPopping elements: " << std::endl;
+    std::cout << "Removed from ABS 1: " << arrayBasedStack1.pop() << std::endl;
+    std::cout << "Removed from ABS 1: " << arrayBasedStack1.pop() << std::endl;
     std::cout << "Removed from ABS 1: " << arrayBasedStack1.pop() << std::endl;
     std::cout << "Removed from ABS 1: " << arrayBasedStack1.pop() << std::endl;
     std::cout << "Peeking at ABS 1: " << arrayBasedStack1.peek() << std::endl;
@@ -172,11 +185,11 @@ void testABS() {
     printData<int>(arrayBasedStack1.getData(), arrayBasedStack1.getSize());
 }
 
-void testABQ() {
+void testABQ() { // Peek has issue?
     // Testing ABQ class implementation
     // Enqueue, dequeue, peeping, getters
     std::cout << "Constructing & filling ABQ 1." << std::endl;
-    ABQ<int> arrayBasedQueue1(5);
+    ABQ<int> arrayBasedQueue1;
     for (size_t i = 0; i < 3; ++i) {
         arrayBasedQueue1.enqueue(static_cast<int>(i));
     }
@@ -194,12 +207,10 @@ void testABQ() {
     std::cout << "\nPopping elements: " << std::endl;
     std::cout << "Removed from ABQ 1: " << arrayBasedQueue1.dequeue() << std::endl;
     std::cout << "Removed from ABQ 1: " << arrayBasedQueue1.dequeue() << std::endl;
+    std::cout << "Removed from ABQ 1: " << arrayBasedQueue1.dequeue() << std::endl;
+    std::cout << "Removed from ABQ 1: " << arrayBasedQueue1.dequeue() << std::endl;
+    // Peeking returning wrong element
     std::cout << "Peeking at ABQ 1: " << arrayBasedQueue1.peek() << std::endl;
-    std::cout << "Size of ABQ 1: " << arrayBasedQueue1.getSize() << std::endl;
-    std::cout << "Capacity of ABQ 1: " << arrayBasedQueue1.getMaxCapacity() << std::endl;
-    std::cout << "\nRemoved from ABQ 1: " << arrayBasedQueue1.dequeue() << " " << arrayBasedQueue1.dequeue() << " " << arrayBasedQueue1.dequeue() << " " << std::endl;
-    std::cout << "Printing ABQ 1: " << std::endl;
-    printData<int>(arrayBasedQueue1.getData(), arrayBasedQueue1.getSize());
     std::cout << "Size of ABQ 1: " << arrayBasedQueue1.getSize() << std::endl;
     std::cout << "Capacity of ABQ 1: " << arrayBasedQueue1.getMaxCapacity() << std::endl;
 
