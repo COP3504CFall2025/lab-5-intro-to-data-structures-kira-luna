@@ -7,35 +7,74 @@
 #include "LinkedList.hpp"
 #include <utility>
 
-
-
 template <typename T>
 class LLDQ : public DequeInterface<T> {
 private:
-    LinkedList<T> list;
+    LinkedList<T> list; // Composition: Double-ended linked container
 
 public:
     // Constructor
-    LLDQ();
+    LLDQ() : list() {}
+    // Copy constructor
+    LLDQ(const LLDQ<T>& other) {
+        list = other.list;
+    }
+    // Move constructor
+    LLDQ(LLDQ<T>&& other) noexcept {
+        list = std::move(other.list);
+    }
+    // Move assignment
+    LLDQ<T>& operator=(LLDQ<T>&& other) noexcept {
+        if (this == &other) return *this;
+        list.clear();
+        list = std::move(other.list);
+        return *this;
+    }
+    // Copy assignment
+    LLDQ<T>& operator=(const LLDQ<T>& rhs) {
+        if (this == &rhs) return *this;
+        list.clear();
+        list = rhs.list;
+        return *this;
+    }
+    // Destructor
+    ~LLDQ() override {
+        list.clear();
+    }
 
     // Core Insertion Operations
-    void pushFront(const T& item) override;
-    void pushBack(const T& item) override;
+    // Insert head
+    void pushFront(const T& item) override {
+        list.addHead(item);
+    }
+    // Insert tail
+    void pushBack(const T& item) override {
+        list.addTail(item);
+    }
 
-    // Core Removal Operations
-    T popFront() override;
-    T popBack() override;
+    // Core Removal Operations: Remove from front/back
+    T popFront() override {
+        T returnVal = list.getHead()->next->data;
+        list.removeHead();
+        return returnVal;
+    }
+    T popBack() override {
+        T returnVal = list.getTail()->prev->data;
+        list.removeTail();
+        return returnVal;
+    }
 
-    // Element Accessors
-    const T& front() const override;
-    const T& back() const override;
+    // Element Accessors: Retrieve end data
+    const T& front() const override {
+        return list.getHead()->next->data;
+    }
+    const T& back() const override {
+        return list.getTail()->prev->data;
+    }
 
-    // Getter
-    std::size_t getSize() const noexcept override;
+    // Getter: Total nodes
+    [[nodiscard]] std::size_t getSize() const noexcept override {
+        return list.getCount();
+    }
 };
-
-
-
-
-
 

@@ -18,6 +18,7 @@ void testABS();
 void testABQ();
 void testLLS();
 void testLLQ();
+void testLLDQ();
 
 int main() {
 
@@ -29,6 +30,7 @@ int main() {
     testABQ();
     testLLS();
     testLLQ();
+    testLLDQ();
     */
     return 0;
 }
@@ -232,7 +234,7 @@ void testLLS() {
         std::cout << "Peeking at LLS 1: " << linkedListStack1.peek() << std::endl;
     }
     std::cout << "Size of LLS 1: " << linkedListStack1.getSize() << std::endl;
-    std::cout << "\nPopping elements: " << std::endl; // Popping not returning correct num
+    std::cout << "\nPopping elements: " << std::endl;
     std::cout << "Removed from LLS 1: " << linkedListStack1.pop() << std::endl;
     std::cout << "Removed from LLS 1: " << linkedListStack1.pop() << std::endl;
     std::cout << "Peeking at LLS 1: " << linkedListStack1.peek() << std::endl;
@@ -262,7 +264,7 @@ void testLLQ() {
         linkedListQueue1.enqueue(static_cast<int>(i));
     }
     std::cout << "Size of LLQ 1: " << linkedListQueue1.getSize() << std::endl;
-    std::cout << "\nPopping elements: " << std::endl; // Popping not returning correct num
+    std::cout << "\nPopping elements: " << std::endl;
     std::cout << "Removed from LLQ 1: " << linkedListQueue1.dequeue() << std::endl;
     std::cout << "Removed from LLQ 1: " << linkedListQueue1.dequeue() << std::endl;
     std::cout << "Peeking at LLQ 1: " << linkedListQueue1.peek() << std::endl;
@@ -281,6 +283,49 @@ void testLLQ() {
     linkedListQueue2.dequeue();
     std::cout << "Move assigning LLQ 1 from LLQ 2." << std::endl;
     linkedListQueue1 = std::move(linkedListQueue2);
+}
+
+void testLLDQ() {
+    // Testing LLDQ class implementation
+    // pushFront, pushBack, popFront, popBack, front, back getters
+    std::cout << "Constructing & filling LLDQ 1 from the front." << std::endl;
+    LLDQ<int> linkedListDeque1;
+    for (size_t i = 0; i < 5; ++i) {
+        linkedListDeque1.pushFront(static_cast<int>(i));
+        std::cout << "Peeking at LLDQ 1 front: " << linkedListDeque1.front() << std::endl;
+    }
+    std::cout << "Size of LLDQ 1: " << linkedListDeque1.getSize() << std::endl;
+    std::cout << "\nPopping elements from the front: " << std::endl;
+    std::cout << "Removed from LLDQ 1: " << linkedListDeque1.popFront() << std::endl;
+    std::cout << "Removed from LLDQ 1: " << linkedListDeque1.popFront() << std::endl;
+    std::cout << "Peeking at LLDQ 1 front: " << linkedListDeque1.front() << std::endl;
+    std::cout << "Size of LLDQ 1: " << linkedListDeque1.getSize() << std::endl;
+    std::cout << "\nConstructing & filling LLDQ 2 from the back." << std::endl;
+    LLDQ<int> linkedListDeque2;
+    for (size_t i = 0; i < 5; ++i) {
+        linkedListDeque2.pushBack(static_cast<int>(i));
+        std::cout << "Peeking at LLDQ 2 back: " << linkedListDeque2.back() << std::endl;
+    }
+    std::cout << "Size of LLDQ 2: " << linkedListDeque2.getSize() << std::endl;
+    std::cout << "\nPopping elements from the back: " << std::endl;
+    std::cout << "Removed from LLDQ 2: " << linkedListDeque2.popBack() << std::endl;
+    std::cout << "Removed from LLDQ 2: " << linkedListDeque2.popBack() << std::endl;
+    std::cout << "Peeking at LLDQ 2 back: " << linkedListDeque2.back() << std::endl;
+    std::cout << "Size of LLDQ 2: " << linkedListDeque2.getSize() << std::endl;
+
+    // Big 5 testing
+    std::cout << "\nCopy constructing LLDQ 3 from LLDQ 1." << std::endl;
+    LLDQ<int> linkedListDeque3 = linkedListDeque1;
+    std::cout << "Popping element from back of LLDQ 2." << std::endl;
+    linkedListDeque3.popBack();
+    std::cout << "Move constructing LLDQ 4 from LLDQ 2." << std::endl;
+    LLDQ<int> linkedListDeque4 = std::move(linkedListDeque2);
+    std::cout << "Copy assigning LLDQ 2 from LLDQ 1." << std::endl;
+    linkedListDeque2 = linkedListDeque1;
+    std::cout << "Pushing 5 to front of LLDQ 2." << std::endl;
+    linkedListDeque2.pushFront(5);
+    std::cout << "Move assigning LLDQ 1 from LLDQ 2." << std::endl;
+    linkedListDeque1 = std::move(linkedListDeque2);
 }
 
 
