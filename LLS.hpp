@@ -42,17 +42,19 @@ public:
 
     // Insertion: Adds node at head
     void push(const T& item) override {
-        list.addTail(item);
+        list.addHead(item);
     }
 
     // Deletion: Removes and returns head
     T pop() override {
-        return list.removeTail();
+        T returnData = list.getHead()->next->data;
+        list.removeHead();
+        return returnData;
     }
 
     // Access: Returns head’s data
     T peek() const override {
-        return list.getTail()->prev->data;
+        return list.getHead()->prev->data;
     }
 
     // Getter: Returns node count

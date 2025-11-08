@@ -17,15 +17,18 @@ void testLinkedList();
 void testABS();
 void testABQ();
 void testLLS();
+void testLLQ();
 
 int main() {
-    testLLS();
+
 
     /*
     // Testing files:
     testLinkedList();
     testABS();
     testABQ();
+    testLLS();
+    testLLQ();
     */
     return 0;
 }
@@ -221,14 +224,63 @@ void testABQ() {
 
 void testLLS() {
     // Testing LLS class implementation
-    // Enqueue, dequeue, peeping, getters
+    // Pushing, popping, peeping, getters
     std::cout << "Constructing & filling LLS 1." << std::endl;
     LLS<int> linkedListStack1;
     for (size_t i = 0; i < 5; ++i) {
         linkedListStack1.push(static_cast<int>(i));
         std::cout << "Peeking at LLS 1: " << linkedListStack1.peek() << std::endl;
     }
+    std::cout << "Size of LLS 1: " << linkedListStack1.getSize() << std::endl;
+    std::cout << "\nPopping elements: " << std::endl; // Popping not returning correct num
+    std::cout << "Removed from LLS 1: " << linkedListStack1.pop() << std::endl;
+    std::cout << "Removed from LLS 1: " << linkedListStack1.pop() << std::endl;
+    std::cout << "Peeking at LLS 1: " << linkedListStack1.peek() << std::endl;
+    std::cout << "Size of LLS 1: " << linkedListStack1.getSize() << std::endl;
 
+    // Big 5 testing
+    std::cout << "\nCopy constructing LLS 2 from LLS 1." << std::endl;
+    LLS<int> linkedListStack2 = linkedListStack1;
+    std::cout << "Popping element from LLS 2." << std::endl;
+    linkedListStack2.pop();
+    std::cout << "Move constructing LLS 3 from LLS 2." << std::endl;
+    LLS<int> linkedListStack3 = std::move(linkedListStack2);
+    std::cout << "Copy assigning LLS 2 from LLS 1." << std::endl;
+    linkedListStack2 = linkedListStack1;
+    std::cout << "Pushing to LLS 2." << std::endl;
+    linkedListStack2.push(5);
+    std::cout << "Move assigning LLS 1 from LLS 2." << std::endl;
+    linkedListStack1 = std::move(linkedListStack2);
+}
+
+void testLLQ() {
+    // Testing LLQ class implementation
+    // Enqueue, dequeue, peeping, getters
+    std::cout << "Constructing & filling LLQ 1." << std::endl;
+    LLQ<int> linkedListQueue1;
+    for (size_t i = 0; i < 5; ++i) {
+        linkedListQueue1.enqueue(static_cast<int>(i));
+    }
+    std::cout << "Size of LLQ 1: " << linkedListQueue1.getSize() << std::endl;
+    std::cout << "\nPopping elements: " << std::endl; // Popping not returning correct num
+    std::cout << "Removed from LLQ 1: " << linkedListQueue1.dequeue() << std::endl;
+    std::cout << "Removed from LLQ 1: " << linkedListQueue1.dequeue() << std::endl;
+    std::cout << "Peeking at LLQ 1: " << linkedListQueue1.peek() << std::endl;
+    std::cout << "Size of LLQ 1: " << linkedListQueue1.getSize() << std::endl;
+
+    // Big 5 testing
+    std::cout << "\nCopy constructing LLQ 2 from LLQ 1." << std::endl;
+    LLQ<int> linkedListQueue2 = linkedListQueue1;
+    std::cout << "Popping element from LLQ 2." << std::endl;
+    linkedListQueue2.dequeue();
+    std::cout << "Move constructing LLQ 3 from LLQ 2." << std::endl;
+    LLQ<int> linkedListQueue3 = std::move(linkedListQueue2);
+    std::cout << "Copy assigning LLQ 2 from LLQ 1." << std::endl;
+    linkedListQueue2 = linkedListQueue1;
+    std::cout << "Pushing to LLQ 2." << std::endl;
+    linkedListQueue2.dequeue();
+    std::cout << "Move assigning LLQ 1 from LLQ 2." << std::endl;
+    linkedListQueue1 = std::move(linkedListQueue2);
 }
 
 

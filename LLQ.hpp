@@ -1,3 +1,4 @@
+// LLQ.hpp: Linked-List Queue (First in, first out)
 #pragma once
 
 #include "Interfaces.hpp"
@@ -8,21 +9,56 @@
 template <typename T>
 class LLQ : public QueueInterface<T> {
 private:
-    LinkedList<T> list;
+    LinkedList<T> list; // Internal member: Implements FIFO
 public:
     // Constructor
-    LLQ();
+    LLQ() : list() {}
+    // Copy constructor
+    LLQ(const LLQ<T>& other) {
+        list = other.list;
+    }
+    // Move constructor
+    LLQ(LLQ<T>&& other) noexcept {
+        list = std::move(other.list);
+    }
+    // Move assignment
+    LLQ<T>& operator=(LLQ<T>&& other) noexcept {
+        if (this == &other) return *this;
+        list.clear();
+        list = std::move(other.list);
+        return *this;
+    }
+    // Copy assignment
+    LLQ<T>& operator=(const LLQ<T>& rhs) {
+        if (this == &rhs) return *this;
+        list.clear();
+        list = rhs.list;
+        return *this;
+    }
+    // Destructor
+    ~LLQ() override {
+        list.clear();
+    }
 
-    // Insertion
-    void enqueue(const T& item) override;
+    // Insertion: Adds new tail node
+    void enqueue(const T& item) override {
+        list.addTail(item);
+    }
 
-    // Deletion
-    T dequeue() override;
+    // Deletion: Removes head node
+    T dequeue() override {
+        T returnData = list.getHead()->next->data;
+        list.removeHead();
+        return returnData;
+    }
 
-    // Access
-    T peek() const override;
+    // Access: Returns head data
+    T peek() const override {
+        return list.getHead()->next->data;
+    }
 
-    // Getter
-    std::size_t getSize() const noexcept override;
-
+    // Getter: Returns list count
+    [[nodiscard]] std::size_t getSize() const noexcept override {
+        return list.getCount();
+    }
 };

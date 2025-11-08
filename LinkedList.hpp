@@ -167,7 +167,6 @@ public:
 		Node* newTail = tail->prev;
 		newTail->next = nullptr;
 		tail->prev = nullptr;
-		// Remove/delete data?
 		delete tail;
 		tail = newTail;
 		count--;
