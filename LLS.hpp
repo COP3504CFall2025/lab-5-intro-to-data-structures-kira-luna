@@ -1,3 +1,4 @@
+// LLS.hpp: Linked-List Stack. Last-in, First-out.
 #pragma once
 
 #include "Interfaces.hpp"
@@ -8,20 +9,54 @@
 template <typename T>
 class LLS : public StackInterface<T> {
 private:
-    LinkedList<T> list;
+    LinkedList<T> list; // Internal container; Maintains stack order
 public:
     // Constructor
-    LLS();
+    LLS() : list() {}
+    // Copy constructor
+    LLS(const LLS<T>& other) {
+        list = other.list;
+    }
+    // Move constructor
+    LLS(LLS<T>&& other) noexcept {
+        list = std::move(other.list);
+    }
+    // Move assignment
+    LLS<T>& operator=(LLS<T>&& other) noexcept {
+        if (this == &other) return *this;
+        list.clear();
+        list = std::move(other.list);
+        return *this;
+    }
+    // Copy assignment
+    LLS<T>& operator=(const LLS<T>& rhs) {
+        if (this == &rhs) return *this;
+        list.clear();
+        list = rhs.list;
+        return *this;
+    }
+    // Destructor
+    ~LLS() override {
+        list.clear();
+    }
 
-    // Insertion
-    void push(const T& item) override;
+    // Insertion: Adds node at head
+    void push(const T& item) override {
+        list.addTail(item);
+    }
 
-    // Deletion
-    T pop() override;
+    // Deletion: Removes and returns head
+    T pop() override {
+        return list.removeTail();
+    }
 
-    // Access
-    T peek() const override;
+    // Access: Returns head’s data
+    T peek() const override {
+        return list.getTail()->prev->data;
+    }
 
-    //Getters
-    std::size_t getSize() const noexcept override;
+    // Getter: Returns node count
+    [[nodiscard]] std::size_t getSize() const noexcept override {
+        return list.getCount();
+    }
 };

@@ -16,9 +16,10 @@ void printData(T* arr, size_t currentSize);
 void testLinkedList();
 void testABS();
 void testABQ();
+void testLLS();
 
 int main() {
-
+    testLLS();
 
     /*
     // Testing files:
@@ -216,6 +217,18 @@ void testABQ() {
     std::cout << "Move assigning ABQ 1 from ABQ 2." << std::endl;
     arrayBasedQueue1 = std::move(arrayBasedQueue2);
     printData<int>(arrayBasedQueue1.getData(), arrayBasedQueue1.getSize());
+}
+
+void testLLS() {
+    // Testing LLS class implementation
+    // Enqueue, dequeue, peeping, getters
+    std::cout << "Constructing & filling LLS 1." << std::endl;
+    LLS<int> linkedListStack1;
+    for (size_t i = 0; i < 5; ++i) {
+        linkedListStack1.push(static_cast<int>(i));
+        std::cout << "Peeking at LLS 1: " << linkedListStack1.peek() << std::endl;
+    }
+
 }
 
 
