@@ -14,16 +14,20 @@ class ABQ : public QueueInterface<T>{
     size_t capacity_; // Total buffer size
     size_t curr_size_; // Number of active elements
     T* array_; // Dynamic storage
-    size_t front_;
-    size_t back_;
+    size_t front_; // Index of front item
+    size_t back_; // Index after last item
     static constexpr size_t scale_factor_ = 2;
 
 public:
     // Constructors + Big 5
-    // Default constructor. Default capacity_ to 1, size_ to 0, and create buffer array data_.
+    // Default constructor
     ABQ() : capacity_(1), curr_size_(0), array_(new T[1]), front_(0), back_(0) {}
-    // Parameterized Constructor. Same behavior as default, however set capacity_ to capacity
-    explicit ABQ(const size_t capacity) : capacity_(capacity), curr_size_(0), front_(0), back_(0) {
+    // Parameterized Constructor
+    explicit ABQ(const size_t capacity) {
+        capacity_ = capacity;
+        curr_size_ = 0;
+        front_ = 0;
+        back_ = 0;
         array_ = new T[capacity_];
     }
     // Copy constructor
@@ -105,6 +109,7 @@ public:
             }
             delete[] array_;
             array_ = temp;
+            delete[] temp;
             front_ = 0;
             back_ = curr_size_;
         }
@@ -120,7 +125,7 @@ public:
     }
 
     // Deletion: Removes from front
-    T dequeue() override { // Need to fix logic of dequeue function
+    T dequeue() override { // Need to fix logic of dequeue function ?
         if (curr_size_ == 0) throw std::runtime_error("Stack is empty");
         T returnVal = array_[front_];
         front_ = (front_ + 1) % capacity_;
@@ -134,6 +139,8 @@ public:
             }
             delete[] array_;
             array_ = temp;
+            delete[] temp;
+            temp = nullptr;
             front_ = 0;
             back_ = curr_size_;
         }

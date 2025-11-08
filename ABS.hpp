@@ -89,6 +89,7 @@ public:
             }
             delete[] array_;
             array_ = temp;
+            delete[] temp;
         }
         array_[curr_size_] = data;
         curr_size_++;
@@ -103,6 +104,7 @@ public:
     // Removes and returns the last inserted element
     T pop() override {
         if (curr_size_ == 0) throw std::runtime_error("Stack is empty");
+        T returnVal = array_[curr_size_-1];
         curr_size_--;
         // If size is 1/4 capacity, halving capacity and moving to smaller array
         if (curr_size_ * 4 <= capacity_) {
@@ -113,10 +115,9 @@ public:
             }
             delete[] array_;
             array_ = temp;
+            delete[] temp;
         }
-        T val = array_[curr_size_];
-        array_[curr_size_] = 0;
-        return val;
+        // array_[curr_size_] = 0;
+        return returnVal;
     }
 };
-

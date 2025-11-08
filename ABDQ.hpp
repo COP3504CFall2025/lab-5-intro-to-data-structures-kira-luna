@@ -22,7 +22,13 @@ public:
     ABDQ() : data_(new T[4]), capacity_(4), size_(0), front_(0), back_(0) {}
     // Parameterized constructor. Same behavior as default, however set capacity_
     // to capacity.
-    explicit ABDQ(std::size_t capacity) : data_(new T[4]), capacity_(capacity), size_(0), front_(0), back_(0) {}
+    explicit ABDQ(std::size_t capacity) {
+        capacity_ = capacity;
+        data_ = new T[capacity_];
+        size_ = 0;
+        front_ = 0;
+        back_ = 0;
+    }
     // Copy constructor
     ABDQ(const ABDQ& other) {
         capacity_ = other.capacity_;
@@ -90,10 +96,11 @@ public:
     void pushFront(const T& item) override {
         // If size exceeds capacity, doubling the size of the array
         if (size_ >= capacity_) {
+            std::size_t oldCap = capacity_;
             capacity_ *= SCALE_FACTOR;
             T* temp = new T[capacity_];
             for (size_t i = 0; i < size_; ++i) {
-                temp[i] = data_[(front_ + i) % capacity_];
+                temp[i] = data_[(front_ + i) % oldCap];
             }
             delete[] data_;
             data_ = temp;
@@ -107,10 +114,11 @@ public:
     void pushBack(const T& item) override {
         // If size exceeds capacity, doubling the size of the array
         if (size_ >= capacity_) {
+            std::size_t oldCap = capacity_;
             capacity_ *= SCALE_FACTOR;
             T* temp = new T[capacity_];
             for (size_t i = 0; i < size_; ++i) {
-                temp[i] = data_[(front_ + i) % capacity_];
+                temp[i] = data_[(front_ + i) % oldCap];
             }
             delete[] data_;
             data_ = temp;
@@ -126,7 +134,7 @@ public:
     T popFront() override {
         if (size_ == 0) throw std::runtime_error("Deque is empty");
         T returnVal = data_[front_];
-        data_[front_] = 0;
+        // data_[front_] = 0;
         front_ = (front_ + 1) % capacity_;
         size_--;
         return returnVal;
@@ -135,7 +143,7 @@ public:
         if (size_ == 0) throw std::runtime_error("Deque is empty");
         back_ = (back_ + capacity_ - 1) % capacity_;
         T returnVal = data_[back_];
-        data_[back_] = 0;
+        // data_[back_] = 0;
         size_--;
         return returnVal;
     }
@@ -159,6 +167,7 @@ public:
         }
         delete[] data_;
         data_ = temp;
+        delete[] temp;
         front_ = 0;
         back_ = size_;
     }
@@ -173,6 +182,7 @@ public:
             }
             delete[] data_;
             data_ = temp;
+            delete[] temp;
             front_ = 0;
             back_ = size_;
         }
