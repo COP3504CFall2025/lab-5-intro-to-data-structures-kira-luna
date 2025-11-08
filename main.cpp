@@ -22,8 +22,6 @@ void testLLDQ();
 void testABDQ();
 
 int main() {
-    testABDQ();
-
     /*
     // Testing files:
     testLinkedList();
@@ -32,6 +30,7 @@ int main() {
     testLLS();
     testLLQ();
     testLLDQ();
+    testABDQ();
     */
     return 0;
 }
@@ -288,7 +287,7 @@ void testLLQ() {
 
 void testLLDQ() {
     // Testing LLDQ class implementation
-    // pushFront, pushBack, popFront, popBack, front, back getters
+    // pushFront, pushBack, popFront, popBack, front, back, getter
     std::cout << "Constructing & filling LLDQ 1 from the front." << std::endl;
     LLDQ<int> linkedListDeque1;
     for (size_t i = 0; i < 5; ++i) {
@@ -330,7 +329,51 @@ void testLLDQ() {
 }
 
 void testABDQ() {
+    // Testing ABDQ class implementation
+    // Pushing front/back, accessing front/back, ensureCapacity, shrinkIfNeeded, getSize
+    std::cout << "Constructing & filling ABDQ 1 from the front." << std::endl;
+    ABDQ<int> arrayBasedDeque1;
+    for (size_t i = 0; i < 5; ++i) {
+        arrayBasedDeque1.pushFront(static_cast<int>(i));
+        std::cout << "Peeking at ABDQ 1 front: " << arrayBasedDeque1.front() << std::endl;
+    }
+    std::cout << "Size of ABDQ 1: " << arrayBasedDeque1.getSize() << std::endl;
+    std::cout << "Capacity of ABDQ 1: " << arrayBasedDeque1.getCapacity() << std::endl;
+    std::cout << "\nPopping elements from the front: " << std::endl;
+    std::cout << "Removed from ABDQ 1: " << arrayBasedDeque1.popFront() << std::endl;
+    std::cout << "Removed from ABDQ 1: " << arrayBasedDeque1.popFront() << std::endl;
+    std::cout << "Peeking at ABDQ 1 front: " << arrayBasedDeque1.front() << std::endl;
+    std::cout << "Size of ABDQ 1: " << arrayBasedDeque1.getSize() << std::endl;
+    std::cout << "Capacity of ABDQ 1: " << arrayBasedDeque1.getCapacity() << std::endl;
+    std::cout << "\nConstructing & filling ABDQ 2 from the back." << std::endl;
+    ABDQ<int> arrayBasedDeque2;
+    for (size_t i = 0; i < 10; ++i) {
+        arrayBasedDeque2.pushBack(static_cast<int>(i));
+        std::cout << "Peeking at ABDQ 2 back: " << arrayBasedDeque2.back() << std::endl;
+    }
+    std::cout << "Size of ABDQ 2: " << arrayBasedDeque2.getSize() << std::endl;
+    std::cout << "Capacity of ABDQ 2: " << arrayBasedDeque2.getCapacity() << std::endl;
+    std::cout << "\nPopping elements from the back: " << std::endl;
+    std::cout << "Removed from ABDQ 2: " << arrayBasedDeque2.popBack() << " " << arrayBasedDeque2.popBack() << " " << arrayBasedDeque2.popBack() << " " << arrayBasedDeque2.popBack() << " " << arrayBasedDeque2.popBack() << " " << arrayBasedDeque2.popBack() << " " << std::endl;
+    std::cout << "Size of ABDQ 2: " << arrayBasedDeque2.getSize() << std::endl;
+    arrayBasedDeque2.shrinkIfNeeded();
+    std::cout << "Shrinking ABDQ 2 if needed, capacity: " << arrayBasedDeque2.getCapacity() << std::endl;
+    arrayBasedDeque2.ensureCapacity();
+    std::cout << "Ensuring capacity of ABDQ 2, capacity: " << arrayBasedDeque2.getCapacity() << std::endl;
 
+    // Big 5 testing
+    std::cout << "\nCopy constructing ABDQ 3 from ABDQ 1." << std::endl;
+    ABDQ<int> arrayBasedDeque3 = arrayBasedDeque1;
+    std::cout << "Popping element from back of ABDQ 2." << std::endl;
+    arrayBasedDeque3.popBack();
+    std::cout << "Move constructing ABDQ 4 from ABDQ 2." << std::endl;
+    ABDQ<int> arrayBasedDeque4 = std::move(arrayBasedDeque2);
+    std::cout << "Copy assigning ABDQ 2 from ABDQ 1." << std::endl;
+    arrayBasedDeque2 = arrayBasedDeque1;
+    std::cout << "Pushing 5 to front of ABDQ 2." << std::endl;
+    arrayBasedDeque2.pushFront(5);
+    std::cout << "Move assigning ABDQ 1 from ABDQ 2." << std::endl;
+    arrayBasedDeque1 = std::move(arrayBasedDeque2);
 }
 
 #endif

@@ -38,8 +38,8 @@ public:
     ABDQ(ABDQ&& other) noexcept {
         capacity_ = other.capacity_;
         other.capacity_ = 0;
-        size_ = other.curr_size_;
-        other.curr_size_ = 0;
+        size_ = other.size_;
+        other.size_ = 0;
         front_ = other.front_;
         other.front_ = 0;
         back_ = other.back_;
@@ -51,7 +51,7 @@ public:
     ABDQ& operator=(const ABDQ& other) {
         if (this == &other) return *this;
         capacity_ = other.capacity_;
-        size_ = other.curr_size_;
+        size_ = other.size_;
         front_ = other.front_;
         back_ = other.back_;
         delete[] data_;
@@ -66,8 +66,8 @@ public:
         if (this == &other) return *this;
         capacity_ = other.capacity_;
         other.capacity_ = 0;
-        size_ = other.curr_size_;
-        other.curr_size_ = 0;
+        size_ = other.size_;
+        other.size_ = 0;
         data_ = other.data_;
         other.data_ = nullptr;
         front_ = other.front_;
@@ -145,7 +145,7 @@ public:
         return data_[front_];
     }
     const T& back() const override {
-        return data_[back_];
+        return data_[(back_ + capacity_ -1) % capacity_];
     }
 
     // Resizes to capacity_ * 2
@@ -176,8 +176,11 @@ public:
         }
     }
 
-    // Getter
+    // Getters
     [[nodiscard]] std::size_t getSize() const noexcept override {
         return size_;
+    }
+    [[nodiscard]] std::size_t getCapacity() const noexcept {
+        return capacity_;
     }
 };
