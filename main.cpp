@@ -19,9 +19,10 @@ void testABQ();
 void testLLS();
 void testLLQ();
 void testLLDQ();
+void testABDQ();
 
 int main() {
-
+    testABDQ();
 
     /*
     // Testing files:
@@ -328,5 +329,8 @@ void testLLDQ() {
     linkedListDeque1 = std::move(linkedListDeque2);
 }
 
+void testABDQ() {
+
+}
 
 #endif
