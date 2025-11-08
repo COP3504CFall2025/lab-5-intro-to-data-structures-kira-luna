@@ -73,16 +73,12 @@ public:
         array_ = nullptr;
     }
 
-    // Gets the number of items in the ABS
+    // Getters
     [[nodiscard]] size_t getSize() const noexcept override { return curr_size_; }
-
-    // Gets the max size of the ABS
     [[nodiscard]] size_t getMaxCapacity() const noexcept { return capacity_; }
-
-    // Returns underlying data for the stack
     [[nodiscard]] T* getData() const noexcept { return array_; }
 
-    // Push item onto the top of the stack
+    // Push item onto the top of the stack (end of the array)
     void push(const T& data) override {
         // If size exceeds capacity, doubling the size of the array
         if (curr_size_ >= capacity_) {
