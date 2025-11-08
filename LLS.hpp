@@ -47,6 +47,7 @@ public:
 
     // Deletion: Removes and returns head
     T pop() override {
+        if (list.getCount() == 2) throw std::runtime_error("Stack is empty");
         T returnData = list.getHead()->next->data;
         list.removeHead();
         return returnData;
@@ -54,6 +55,7 @@ public:
 
     // Access: Returns head’s data
     T peek() const override {
+        if (list.getCount() == 2) throw std::runtime_error("Stack is empty");
         return list.getHead()->prev->data;
     }
 

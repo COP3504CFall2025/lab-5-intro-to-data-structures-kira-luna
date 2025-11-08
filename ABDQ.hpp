@@ -142,9 +142,11 @@ public:
 
     // Access: Access extremities
     const T& front() const override {
+        if (size_ == 0) throw std::runtime_error("Deque is empty");
         return data_[front_];
     }
     const T& back() const override {
+        if (size_ == 0) throw std::runtime_error("Deque is empty");
         return data_[(back_ + capacity_ -1) % capacity_];
     }
 
