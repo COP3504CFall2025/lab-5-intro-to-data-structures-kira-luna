@@ -74,6 +74,7 @@ public:
         other.capacity_ = 0;
         size_ = other.size_;
         other.size_ = 0;
+        delete[] data_;
         data_ = other.data_;
         other.data_ = nullptr;
         front_ = other.front_;
@@ -104,6 +105,7 @@ public:
             }
             delete[] data_;
             data_ = temp;
+            temp = nullptr;
             front_ = 0;
             back_ = size_;
         }
@@ -122,6 +124,7 @@ public:
             }
             delete[] data_;
             data_ = temp;
+            temp = nullptr;
             front_ = 0;
             back_ = size_;
         }
@@ -160,14 +163,15 @@ public:
 
     // Resizes to capacity_ * 2
     void ensureCapacity() {
+        std::size_t oldCap = capacity_;
         capacity_ *= SCALE_FACTOR;
         T* temp = new T[capacity_];
         for (size_t i = 0; i < size_; ++i) {
-            temp[i] = data_[(front_ + i) % capacity_];
+            temp[i] = data_[(front_ + i) % oldCap];
         }
         delete[] data_;
         data_ = temp;
-        delete[] temp;
+        temp = nullptr;
         front_ = 0;
         back_ = size_;
     }
@@ -175,14 +179,15 @@ public:
     // Reduces to half when sparse
     void shrinkIfNeeded() {
         if (size_ * 4 <= capacity_) {
+            std::size_t oldCap = capacity_;
             capacity_ /= 2;
             T* temp = new T[capacity_];
             for (size_t i = 0; i < size_; ++i) {
-                temp[i] = data_[(front_ + i) % capacity_];
+                temp[i] = data_[(front_ + i) % oldCap];
             }
             delete[] data_;
             data_ = temp;
-            delete[] temp;
+            temp = nullptr;
             front_ = 0;
             back_ = size_;
         }

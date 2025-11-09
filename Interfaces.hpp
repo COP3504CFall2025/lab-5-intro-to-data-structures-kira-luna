@@ -37,4 +37,3 @@ public:
     virtual const T& back() const = 0;
     virtual std::size_t getSize() const noexcept = 0;
 };
-

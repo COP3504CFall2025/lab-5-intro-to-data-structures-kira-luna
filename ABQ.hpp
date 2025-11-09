@@ -37,9 +37,10 @@ public:
         front_ = other.front_;
         back_ = other.back_;
         array_ = new T[other.capacity_];
-        for (size_t i = 0; i < curr_size_; i++) {
-            array_[i] = other.array_[i];
-        }
+        for (size_t i = 0; i < curr_size_; i++)
+            array_[i] = other.array_[(other.front_ + i) % other.capacity_];
+        front_ = 0;
+        back_ = curr_size_;
     }
     // Copy assignment
     ABQ& operator=(const ABQ& rhs) {
@@ -75,6 +76,7 @@ public:
         rhs.capacity_ = 0;
         curr_size_ = rhs.curr_size_;
         rhs.curr_size_ = 0;
+        delete[] array_;
         array_ = rhs.array_;
         rhs.array_ = nullptr;
         front_ = rhs.front_;
@@ -102,14 +104,15 @@ public:
     void enqueue(const T& data) override {
         // If size exceeds capacity, doubling the size of the array
         if (curr_size_ >= capacity_) {
+            std::size_t oldCap = capacity_;
             capacity_ *= scale_factor_;
             T* temp = new T[capacity_];
             for (size_t i = 0; i < curr_size_; ++i) {
-                temp[i] = array_[(front_ + i) % capacity_];
+                temp[i] = array_[(front_ + i) % oldCap];
             }
             delete[] array_;
             array_ = temp;
-            delete[] temp;
+            temp = nullptr;
             front_ = 0;
             back_ = curr_size_;
         }
@@ -120,26 +123,26 @@ public:
 
     // Access: Returns front element
     T peek() const override {
-        if (curr_size_ == 0) throw std::runtime_error("Stack is empty");
+        if (curr_size_ == 0) throw std::runtime_error("Queue is empty");
         return array_[front_];
     }
 
     // Deletion: Removes from front
     T dequeue() override { // Need to fix logic of dequeue function ?
-        if (curr_size_ == 0) throw std::runtime_error("Stack is empty");
+        if (curr_size_ == 0) throw std::runtime_error("Queue is empty");
         T returnVal = array_[front_];
         front_ = (front_ + 1) % capacity_;
         curr_size_--;
         // If size is 1/4 capacity, halving capacity and moving to smaller array
         if (curr_size_ * 4 <= capacity_ && capacity_ > 1) {
+            std::size_t oldCap = capacity_;
             capacity_ /= 2;
             T* temp = new T[capacity_];
             for (size_t i = 0; i < curr_size_; ++i) {
-                temp[i] = array_[(front_ + i) % capacity_];
+                temp[i] = array_[(front_ + i) % oldCap];
             }
             delete[] array_;
             array_ = temp;
-            delete[] temp;
             temp = nullptr;
             front_ = 0;
             back_ = curr_size_;

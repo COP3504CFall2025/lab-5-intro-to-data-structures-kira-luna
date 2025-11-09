@@ -89,7 +89,7 @@ public:
             }
             delete[] array_;
             array_ = temp;
-            delete[] temp;
+            temp = nullptr;
         }
         array_[curr_size_] = data;
         curr_size_++;
@@ -115,7 +115,7 @@ public:
             }
             delete[] array_;
             array_ = temp;
-            delete[] temp;
+            temp = nullptr;
         }
         // array_[curr_size_] = 0;
         return returnVal;
