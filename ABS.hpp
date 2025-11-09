@@ -61,6 +61,7 @@ public:
         rhs.capacity_ = 0;
         curr_size_ = rhs.curr_size_;
         rhs.curr_size_ = 0;
+        delete[] array_;
         array_ = rhs.array_;
         rhs.array_ = nullptr;
         return *this;
